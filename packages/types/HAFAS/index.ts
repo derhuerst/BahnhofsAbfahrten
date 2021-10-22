@@ -48,6 +48,9 @@ export type JourneyFilterType =
   | 'INFOTEXTS'
   | 'JID'
   | 'LID'
+  // currently stopping at a location
+  // - `mode: 'INC', value: '900100001'` for "currently at S+U Friedrichstr.", works with VBB
+  // note: just like `type: 'STATIONS'`, but takes a location identifier
   | 'LINE'
   // line (?) ID, e.g.
   // - `mode: 'INC', value: '311'` for trips with `prodCtx.lineId: '311'`, as used by CMTA
@@ -71,6 +74,9 @@ export type JourneyFilterType =
   | 'PROD'
   | 'ROUTE'
   | 'SLEEP'
+  // currently stopping at a station
+  // - `mode: 'INC', value: '900100001'` for "currently at S+U Friedrichstr.", works with VBB
+  // note: just like `type: 'LID'`, but takes a plain stop ID
   | 'STATIONS'
   // UIC country code
   // - `mode: 'INC', value: '81'` for "only Austrian", as used by ÖBB Scotty
