@@ -58,6 +58,9 @@ export type JourneyFilterType =
   | 'META'
   | 'NAME'
   | 'NUM'
+  // operator *name*, as used in `opL[].name`
+  // - `mode: 'INC', value: 'Berliner Verkehrsbetriebe'` for BVG-operated, works with VBB
+  // - `mode: 'INC', value: 'DB Regio AG'` for DB-Regio-operated, works with VBB
   | 'OP'
   | 'PID'
   // products bitmask, e.g.
