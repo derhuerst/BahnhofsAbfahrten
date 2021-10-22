@@ -68,6 +68,8 @@ export type JourneyFilterType =
   | 'ROUTE'
   | 'SLEEP'
   | 'STATIONS'
+  // UIC country code
+  // - `mode: 'INC', value: '81'` for "only Austrian", as used by ÖBB Scotty
   | 'UIC';
 
 export type AllowedHafasMethods =
