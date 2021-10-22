@@ -20,24 +20,50 @@ import type { TripSearchRequest } from './TripSearch';
 export type JourneyFilterMode = 'BIT' | 'EXC' | 'INC' | 'UNDEF';
 export type JourneyFilterType =
   | 'ADM'
+  // station accessibility attributes, e.g.
+  // - `mode: 'EXC', value: 'w2'` for "disable stairs"
+  // - `mode: 'EXC', value: 'w3'` for "disable escalators"
+  // - `mode: 'EXC', value: 'w4'` for "disable elevators"
   | 'ATTRF'
+  // vehicle accessibility attributes, e.g.
+  // - `mode: 'INC', value: 'LF'` for "low-floor buses only"
+  // - `mode: 'INC', value: 'HS'` for "wheelchair", as used by ÖBB
+  // - `mode: 'INC', value: '__'` for "wheelchair", as used by ÖBB
+  // - `mode: 'INC', value: '81'`, as used by ÖBB
   | 'ATTRJ'
+  // - `mode: 'INC', value: 'Pc', as used by mobiliteit.lu for `locFltrL` entries
+  // - `mode: 'INC', value: 'Pa', as used by mobiliteit.lu for `locFltrL` entries
+  // - `mode: 'INC', value: 'Pe', as used by mobiliteit.lu for `locFltrL` entries
   | 'ATTRL'
-  | 'BC'
+  | 'BC' // bicycle carriage
   | 'CAT'
   | 'COUCH'
   | 'CTX_RECON'
+  // types of routing modes? e.g.
+  // - `mode: 'INC', value: 'BIKE'` for bicycle-only connections
+  // - `mode: 'INC', value: 'KISS'` for car-only connections
+  // - `mode: 'INC', value: 'OEV'` for public-transport-only connections
+  // - `mode: 'INC', value: 'WALK'` for walking-only connections
   | 'GROUP'
   | 'INFOTEXTS'
   | 'JID'
   | 'LID'
   | 'LINE'
+  // line (?) ID, e.g.
+  // - `mode: 'INC', value: '311'` for trips with `prodCtx.lineId: '311'`, as used by CMTA
   | 'LINEID'
+  // - `mode: 'INC', meta: 'notBarrierfree'`, as used by VBB
+  // - `mode: 'INC', meta: 'limitedBarrierfree'`, as used by VBB
+  // - `mode: 'INC', meta: 'completeBarrierfree'`, as used by VBB
   | 'META'
   | 'NAME'
   | 'NUM'
   | 'OP'
   | 'PID'
+  // products bitmask, e.g.
+  // - `mode: 'INC', value: '127'`
+  // - `mode: 'BIT', value: '0000010001'`
+  // - `mode: 'BIT', value: '0001110000000000'`
   | 'PROD'
   | 'ROUTE'
   | 'SLEEP'
@@ -115,6 +141,9 @@ export interface JourneyFilter {
 
 export type LocationFilterMode = 'BIT' | 'EXC' | 'INC';
 export type LocationFilterType =
+  // - `mode: 'INC', value: 'Pc', as used by mobiliteit.lu
+  // - `mode: 'INC', value: 'Pa', as used by mobiliteit.lu
+  // - `mode: 'INC', value: 'Pe', as used by mobiliteit.lu
   | 'ATTRL'
   | 'ATTRP'
   | 'META'
