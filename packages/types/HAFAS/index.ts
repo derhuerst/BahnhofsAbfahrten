@@ -47,13 +47,16 @@ export type JourneyFilterType =
   | 'GROUP'
   | 'INFOTEXTS'
   | 'JID'
-  | 'LID'
   // currently stopping at a location
   // - `mode: 'INC', value: '900100001'` for "currently at S+U Friedrichstr.", works with VBB
   // note: just like `type: 'STATIONS'`, but takes a location identifier
+  | 'LID'
+  // line (?) ID, e.g.
+  // - `mode: 'INC', value: '100'` for trips with `prodCtx.lineId: '100'`, works with VBB
   | 'LINE'
   // line (?) ID, e.g.
   // - `mode: 'INC', value: '311'` for trips with `prodCtx.lineId: '311'`, as used by CMTA
+  // note: doesn't seem to work with VBB
   | 'LINEID'
   // - `mode: 'INC', meta: 'notBarrierfree'`, as used by VBB
   // - `mode: 'INC', meta: 'limitedBarrierfree'`, as used by VBB
@@ -64,7 +67,7 @@ export type JourneyFilterType =
   // operator *name*, as used in `opL[].name`
   // - `mode: 'INC', value: 'Berliner Verkehrsbetriebe'` for BVG-operated, works with VBB
   // - `mode: 'INC', value: 'DB Regio AG'` for DB-Regio-operated, works with VBB
-  // note: doesn't work with `mode: 'EXC'`
+  // note: doesn't seem to work with `mode: 'EXC'`
   | 'OP'
   | 'PID'
   // products bitmask, e.g.
