@@ -20,28 +20,72 @@ import type { TripSearchRequest } from './TripSearch';
 export type JourneyFilterMode = 'BIT' | 'EXC' | 'INC' | 'UNDEF';
 export type JourneyFilterType =
   | 'ADM'
+  // station accessibility attributes, e.g.
+  // - `mode: 'EXC', value: 'w2'` for "disable stairs"
+  // - `mode: 'EXC', value: 'w3'` for "disable escalators"
+  // - `mode: 'EXC', value: 'w4'` for "disable elevators"
   | 'ATTRF'
+  // vehicle accessibility attributes, e.g.
+  // - `mode: 'INC', value: 'LF'` for "low-floor buses only"
+  // - `mode: 'INC', value: 'HS'` for "wheelchair", as used by ÖBB
+  // - `mode: 'INC', value: '__'` for "wheelchair", as used by ÖBB
+  // - `mode: 'INC', value: '81'`, as used by ÖBB
   | 'ATTRJ'
+  // - `mode: 'INC', value: 'Pc', as used by mobiliteit.lu for `locFltrL` entries
+  // - `mode: 'INC', value: 'Pa', as used by mobiliteit.lu for `locFltrL` entries
+  // - `mode: 'INC', value: 'Pe', as used by mobiliteit.lu for `locFltrL` entries
   | 'ATTRL'
-  | 'BC'
+  | 'BC' // bicycle carriage
   | 'CAT'
   | 'COUCH'
   | 'CTX_RECON'
+  // types of routing modes? e.g.
+  // - `mode: 'INC', value: 'BIKE'` for bicycle-only connections
+  // - `mode: 'INC', value: 'KISS'` for car-only connections
+  // - `mode: 'INC', value: 'OEV'` for public-transport-only connections
+  // - `mode: 'INC', value: 'WALK'` for walking-only connections
   | 'GROUP'
+  // "Filter journeys by one or more custom infotext filters. Multiple infotexts are separated by comma. Use this to filter for trains:` RT|112233,RT|445566`"
   | 'INFOTEXTS'
   | 'JID'
+  // currently stopping at a location
+  // - `mode: 'INC', value: '900100001'` for "currently at S+U Friedrichstr.", works with VBB
+  // note: just like `type: 'STATIONS'`, but takes a location identifier
   | 'LID'
+  // line (?) ID, e.g.
+  // "Filter for lines. To filter multiple lines, separate the names/numbers by comma. If the line should not be part of the be trip, negate it by putting ! in front of it."
+  // - `mode: 'INC', value: '100'` for trips with `prodCtx.lineId: '100'`, works with VBB
   | 'LINE'
+  // line (?) ID, e.g.
+  // - `mode: 'INC', value: '311'` for trips with `prodCtx.lineId: '311'`, as used by CMTA
+  // note: doesn't seem to work with VBB
   | 'LINEID'
+  // - `mode: 'INC', meta: 'notBarrierfree'`, as used by VBB
+  // - `mode: 'INC', meta: 'limitedBarrierfree'`, as used by VBB
+  // - `mode: 'INC', meta: 'completeBarrierfree'`, as used by VBB
   | 'META'
   | 'NAME'
   | 'NUM'
+  // "Filter for operators. To filter multiple operators, separate the codes by comma. If the operator should not be part of the be trip, negate it by putting `!` in front of it."
+  // operator *name*, as used in `opL[].name`
+  // - `mode: 'INC', value: 'Berliner Verkehrsbetriebe'` for BVG-operated, works with VBB
+  // - `mode: 'INC', value: 'DB Regio AG'` for DB-Regio-operated, works with VBB
+  // note: doesn't seem to work with `mode: 'EXC'`
   | 'OP'
   | 'PID'
+  // products bitmask, e.g.
+  // - `mode: 'INC', value: '127'`
+  // - `mode: 'BIT', value: '0000010001'`
+  // - `mode: 'BIT', value: '0001110000000000'`
   | 'PROD'
   | 'ROUTE'
   | 'SLEEP'
+  // "Filter for stations. Matches if the given value is prefix of any station in the itinerary. Multiple values are separated by comma."
+  // - `mode: 'INC', value: '900100001'` for "currently at S+U Friedrichstr.", works with VBB
+  // note: just like `type: 'LID'`, but takes a plain stop ID
   | 'STATIONS'
+  // "Filter for UIC prefix of stations. Matches if the given value part of at least one station id in the itinerary. Multiple values are separated by comma."
+  // - `mode: 'INC', value: '81'` for "only Austrian", as used by ÖBB Scotty
   | 'UIC';
 
 export type AllowedHafasMethods =
@@ -115,6 +159,9 @@ export interface JourneyFilter {
 
 export type LocationFilterMode = 'BIT' | 'EXC' | 'INC';
 export type LocationFilterType =
+  // - `mode: 'INC', value: 'Pc', as used by mobiliteit.lu
+  // - `mode: 'INC', value: 'Pa', as used by mobiliteit.lu
+  // - `mode: 'INC', value: 'Pe', as used by mobiliteit.lu
   | 'ATTRL'
   | 'ATTRP'
   | 'META'
